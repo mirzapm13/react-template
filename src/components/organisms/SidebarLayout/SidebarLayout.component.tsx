@@ -1,6 +1,6 @@
 import { Sidebar } from "flowbite-react";
 import { FaTable } from "react-icons/fa";
-import { HiChartPie, HiShoppingBag } from "react-icons/hi";
+import { HiArrowSmRight, HiChartPie, HiShoppingBag } from "react-icons/hi";
 import { IoDocument } from "react-icons/io5";
 
 // const MENU = [
@@ -50,9 +50,12 @@ const SidebarLayout = () => {
           <Sidebar.Item href="table" icon={FaTable}>
             Table
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiShoppingBag}>
-            Products
+          <Sidebar.Item href="#" icon={HiArrowSmRight}>
+            Sign In
           </Sidebar.Item>
+          {/* <Sidebar.Item href="#" icon={HiTable}>
+            Sign Up
+          </Sidebar.Item> */}
         </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>
