@@ -1,0 +1,21 @@
+.Container {
+  @apply fixed top-0 left-0 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700;
+
+  .Items {
+    @apply overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800 hover:cursor-pointer;
+
+    .Item {
+      @apply grid items-center p-2 text-base font-medium text-gray-500 rounded-lg dark:text-white hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700;
+
+      grid-template-columns: min-content 2fr 1fr;
+
+      .Chevron {
+        @apply justify-self-end;
+      }
+
+      .Title {
+        @apply text-xl ml-3 text-gray-900;
+      }
+    }
+  }
+}

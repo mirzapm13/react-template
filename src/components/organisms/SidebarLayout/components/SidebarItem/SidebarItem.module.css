@@ -1,0 +1,17 @@
+.Item {
+  @apply grid items-center p-2 text-base font-medium text-gray-500 rounded-lg dark:text-white hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700;
+
+  grid-template-columns: min-content 2fr 1fr;
+
+  .Icon.Active {
+    @apply text-gray-900;
+  }
+
+  .Chevron {
+    @apply justify-self-end;
+  }
+
+  .Title {
+    @apply text-base ml-3 text-gray-900;
+  }
+}

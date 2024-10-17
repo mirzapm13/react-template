@@ -1,0 +1,7 @@
+.Container {
+  @apply flex flex-col gap-5;
+
+  .Overview {
+    @apply grid grid-cols-5 gap-4;
+  }
+}

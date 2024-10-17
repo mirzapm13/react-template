@@ -1,0 +1,7 @@
+.MainContainer {
+  @apply grid grid-cols-[min-content_1fr] mt-[60px];
+}
+
+.OutletContainer {
+  @apply p-6;
+}
