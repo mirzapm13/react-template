@@ -29,4 +29,8 @@
   p {
     @apply font-body;
   }
+
+  .ModuleContainer {
+    @apply p-6;
+  }
 }

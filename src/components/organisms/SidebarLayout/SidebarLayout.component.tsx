@@ -1,39 +1,27 @@
+import clsx from "clsx";
 import { Sidebar } from "flowbite-react";
 import { FaTable } from "react-icons/fa";
 import { HiArrowSmRight, HiChartPie, HiShoppingBag } from "react-icons/hi";
 import { IoDocument } from "react-icons/io5";
-
-// const MENU = [
-//   {
-//     title: "Overview",
-//     link: "/overview",
-//     icon: IoPieChart,
-//     children: [
-//       {
-//         title: "Extras",
-//         link: "/overview/extra",
-//       },
-//     ],
-//   },
-//   {
-//     title: "Form",
-//     link: "/form",
-//     icon: IoDocumentText,
-//   },
-//   {
-//     title: "Table",
-//     link: "/table",
-//     icon: FaTableList,
-//   },
-// ];
+import { viewportWidth } from "../../../constants/viewport";
+import useViewport from "../../../hooks/useViewport";
 
 const SidebarLayout = () => {
+  const { width } = useViewport();
   return (
     <Sidebar
-      className="min-h-screen border-r border-gray-200"
+      className={clsx(
+        "border-r border-gray-200 fixed",
+        width < viewportWidth.mobileDown && "!relative w-full"
+      )}
       aria-label="Sidebar with multi-level dropdown example"
     >
-      <Sidebar.Items className="min-h-screen">
+      <Sidebar.Items
+        className={clsx(
+          "pt-[50px]",
+          width < viewportWidth.mobileDown && "pt-0"
+        )}
+      >
         <Sidebar.ItemGroup>
           <Sidebar.Item href="/overview" icon={HiChartPie}>
             Overview
@@ -47,15 +35,15 @@ const SidebarLayout = () => {
           <Sidebar.Item href="/form" icon={IoDocument}>
             Form
           </Sidebar.Item>
-          <Sidebar.Item href="table" icon={FaTable}>
+          <Sidebar.Item href="/table" icon={FaTable}>
             Table
+          </Sidebar.Item>
+          <Sidebar.Item href="/modal" icon={FaTable}>
+            Modal
           </Sidebar.Item>
           <Sidebar.Item href="#" icon={HiArrowSmRight}>
             Sign In
           </Sidebar.Item>
-          {/* <Sidebar.Item href="#" icon={HiTable}>
-            Sign Up
-          </Sidebar.Item> */}
         </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>

@@ -1,7 +1,8 @@
 import { Avatar, CustomFlowbiteTheme, Dropdown, Navbar } from "flowbite-react";
+import { FC } from "react";
 import { FaBell } from "react-icons/fa";
 
-const Header = () => {
+const Header: FC<{ openDrawer: () => void }> = ({ openDrawer }) => {
   const customTheme: CustomFlowbiteTheme["navbar"] = {
     root: {
       inner: {
@@ -52,7 +53,7 @@ const Header = () => {
           <Dropdown.Divider />
           <Dropdown.Item>Sign out</Dropdown.Item>
         </Dropdown>
-        <Navbar.Toggle />
+        <Navbar.Toggle onClick={openDrawer} />
       </div>
     </Navbar>
   );
