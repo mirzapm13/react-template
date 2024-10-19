@@ -1,49 +1,65 @@
 import clsx from "clsx";
-import { Sidebar } from "flowbite-react";
+import { CustomFlowbiteTheme, Sidebar } from "flowbite-react";
 import { FaTable } from "react-icons/fa";
 import { HiArrowSmRight, HiChartPie, HiShoppingBag } from "react-icons/hi";
 import { IoDocument } from "react-icons/io5";
+import { Link } from "react-router-dom";
 import { viewportWidth } from "../../../constants/viewport";
 import useViewport from "../../../hooks/useViewport";
 
 const SidebarLayout = () => {
+  const customTheme: CustomFlowbiteTheme["sidebar"] = {
+    root: {
+      base: "h-full border-r border-gray-200 fixed",
+      inner:
+        "h-full overflow-y-auto overflow-x-hidden rounded bg-primary-800 px-3 py-4",
+    },
+    items: {
+      base: "pt-[90px]",
+    },
+    item: {
+      base: "flex items-center justify-center rounded-lg p-2 text-base font-normal text-white hover:bg-primary-700 [&_svg]:text-[inherit]",
+    },
+    collapse: {
+      button:
+        "flex w-full items-center rounded-lg p-2 text-base font-normal text-white transition duration-75 hover:bg-primary-700 [&_svg]:text-[inherit]",
+    },
+  };
+
   const { width } = useViewport();
   return (
     <Sidebar
+      theme={customTheme}
       className={clsx(
-        "border-r border-gray-200 fixed",
-        width < viewportWidth.mobileDown && "!relative w-full"
+        width < viewportWidth.mobileDown && "!relative w-full border-0"
       )}
       aria-label="Sidebar with multi-level dropdown example"
     >
       <Sidebar.Items
-        className={clsx(
-          "pt-[50px]",
-          width < viewportWidth.mobileDown && "pt-0"
-        )}
+        className={clsx(width < viewportWidth.mobileDown && "pt-0")}
       >
         <Sidebar.ItemGroup>
-          <Sidebar.Item href="/overview" icon={HiChartPie}>
-            Overview
-          </Sidebar.Item>
+          <Link to={"/overview"}>
+            <Sidebar.Item icon={HiChartPie}>Overview</Sidebar.Item>
+          </Link>
           <Sidebar.Collapse icon={HiShoppingBag} label="Dropdown">
             <Sidebar.Item href="#">Dropdown 1</Sidebar.Item>
             <Sidebar.Item href="#">Dropdown 2</Sidebar.Item>
             <Sidebar.Item href="#">Dropdown 3</Sidebar.Item>
             <Sidebar.Item href="#">Dropdown 4</Sidebar.Item>
           </Sidebar.Collapse>
-          <Sidebar.Item href="/form" icon={IoDocument}>
-            Form
-          </Sidebar.Item>
-          <Sidebar.Item href="/table" icon={FaTable}>
-            Table
-          </Sidebar.Item>
-          <Sidebar.Item href="/modal" icon={FaTable}>
-            Modal
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiArrowSmRight}>
-            Sign In
-          </Sidebar.Item>
+          <Link to={"/form"}>
+            <Sidebar.Item icon={IoDocument}>Form</Sidebar.Item>
+          </Link>
+          <Link to={"/table"}>
+            <Sidebar.Item icon={FaTable}>Table</Sidebar.Item>
+          </Link>
+          <Link to={"/modal"}>
+            <Sidebar.Item icon={FaTable}>Modal</Sidebar.Item>
+          </Link>
+          <Link to={"/auth/login"}>
+            <Sidebar.Item icon={HiArrowSmRight}>Sign In</Sidebar.Item>
+          </Link>
         </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>

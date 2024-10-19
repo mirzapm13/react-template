@@ -6,19 +6,40 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: "#eff6ff",
-          100: "#dbeafe",
-          200: "#bfdbfe",
-          300: "#93c5fd",
-          400: "#60a5fa",
-          500: "#3b82f6",
-          600: "#2563eb",
-          700: "#1d4ed8",
-          800: "#1e40af",
-          900: "#1e3a8a",
-          950: "#172554",
+        cyan: {
+          50: "#DBFFEC",
+          100: "#BDFFDB",
+          200: "#75FFB4",
+          300: "#33FF90",
+          400: "#00F06D",
+          500: "#00AB4E",
+          600: "#008A3F",
+          // 700: "#00662F",
+          700: "#008A3F",
+          800: "#00421E",
+          900: "#002410",
+          950: "#000F07",
         },
+
+        primary: {
+          50: "#DBFFEC",
+          100: "#BDFFDB",
+          200: "#75FFB4",
+          300: "#33FF90",
+          400: "#00F06D",
+          500: "#00AB4E",
+          600: "#008A3F",
+          700: "#00662F",
+          800: "#00421E",
+          900: "#002410",
+          950: "#000F07",
+        },
+
+        // drawer: {
+        //   root: {
+        //     base: "fixed z-40 overflow-y-auto bg-white transition-transform dark:bg-gray-800",
+        //   },
+        // },
       },
     },
     fontFamily: {

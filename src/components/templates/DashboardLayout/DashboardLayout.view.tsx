@@ -23,7 +23,7 @@ const ConditionalWrapper: FC<ConditionalWrapperProps> = ({
 const DashboardLayout = () => {
   const customTheme: CustomFlowbiteTheme["drawer"] = {
     root: {
-      base: "fixed z-40 overflow-y-auto bg-white transition-transform dark:bg-gray-800",
+      base: "fixed z-40 overflow-y-auto transition-transform bg-primary-800",
     },
   };
 

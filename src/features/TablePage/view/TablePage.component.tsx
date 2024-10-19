@@ -6,6 +6,7 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import clsx from "clsx";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import DebouncedInput from "../components/DebouncedInput";
@@ -68,60 +69,65 @@ const TablePage = () => {
 
   return (
     <div className="ModuleContainer">
-      <div className="p-2 mx-auto text-white fill-gray-400">
+      <div className="p-2 mx-auto text-black fill-gray-400">
         <div className="flex justify-between mb-2">
           <div className="w-full flex items-center gap-1">
             <FaSearch />
             <DebouncedInput
               value={globalFilter ?? ""}
               onChange={(value) => setGlobalFilter(String(value))}
-              className="p-2 bg-transparent outline-none border-b-2 w-1/5 focus:w-1/3 duration-300 border-indigo-500"
+              className="p-2 bg-transparent outline-none border-b-2 w-1/5 focus:w-1/3 duration-300 border-primary-500"
               placeholder="Search all columns..."
             />
           </div>
         </div>
-        <table className="border border-gray-700 w-full text-left">
-          <thead className="bg-indigo-600">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <th key={header.id} className="capitalize px-3.5 py-2">
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.length ? (
-              table.getRowModel().rows.map((row, i) => (
-                <tr
-                  key={row.id}
-                  className={`
-                  ${i % 2 === 0 ? "bg-gray-900" : "bg-gray-800"}
-                  `}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="px-3.5 py-2">
+        <div className="rounded-lg overflow-hidden">
+          <table className="w-full text-left">
+            <thead className="bg-primary-600 text-white">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <th key={header.id} className="capitalize px-3.5 py-2">
                       {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
+                        header.column.columnDef.header,
+                        header.getContext()
                       )}
-                    </td>
+                    </th>
                   ))}
                 </tr>
-              ))
-            ) : (
-              <tr className="text-center h-32">
-                <td colSpan={12}>No Recoard Found!</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-        {/* pagination */}
+              ))}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.length ? (
+                table.getRowModel().rows.map((row, i) => (
+                  <tr
+                    key={row.id}
+                    className={clsx(
+                      i % 2 === 0 ? "white" : "bg-gray-50",
+                      "hover:bg-gray-200"
+                    )}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <td key={cell.id} className="px-3.5 py-2">
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              ) : (
+                <tr className="text-center h-32">
+                  <td colSpan={12}>No Recoard Found!</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        {/* ==========pagination============== */}
+
         <div className="flex items-center justify-end mt-2 gap-2">
           <button
             onClick={() => {
@@ -166,7 +172,7 @@ const TablePage = () => {
             onChange={(e) => {
               table.setPageSize(Number(e.target.value));
             }}
-            className="p-2 bg-transparent"
+            className="p-2 bg-transparent max-w-[200px]"
           >
             {[10, 20, 30, 50].map((pageSize) => (
               <option key={pageSize} value={pageSize}>

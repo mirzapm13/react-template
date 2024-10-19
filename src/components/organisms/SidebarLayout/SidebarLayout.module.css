@@ -19,3 +19,9 @@
     }
   }
 }
+
+.Sidebar {
+  span {
+    color: white !important;
+  }
+}

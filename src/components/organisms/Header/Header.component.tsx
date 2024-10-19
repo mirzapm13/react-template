@@ -5,6 +5,7 @@ import { FaBell } from "react-icons/fa";
 const Header: FC<{ openDrawer: () => void }> = ({ openDrawer }) => {
   const customTheme: CustomFlowbiteTheme["navbar"] = {
     root: {
+      base: "bg-white px-2 py-2.5 sm:px-4 z-10 w-full fixed top-0 border-b border-gray-200 z-10 w-full fixed top-0 border-b border-gray-200",
       inner: {
         base: "mx-0 flex flex-wrap items-center justify-between !min-w-full",
       },
@@ -12,14 +13,9 @@ const Header: FC<{ openDrawer: () => void }> = ({ openDrawer }) => {
   };
 
   return (
-    <Navbar
-      theme={customTheme}
-      className="z-10 w-full fixed top-0 border-b border-gray-200 max-w"
-    >
+    <Navbar theme={customTheme}>
       <Navbar.Brand href="#">
-        <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-          React Template
-        </span>
+        <img src="/globals/logo-placeholder.svg" alt="Main Logo" />
       </Navbar.Brand>
       <div className="flex gap-2 md:order-2">
         <button

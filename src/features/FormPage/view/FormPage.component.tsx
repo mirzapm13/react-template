@@ -1,18 +1,44 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Button } from "flowbite-react";
+import {
+  Controller,
+  FieldError,
+  SubmitErrorHandler,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
 import { z } from "zod";
+import CustomSelect from "../../../components/atoms/CustomSelect";
+import Input from "../../../components/atoms/Input";
+import TextArea from "../../../components/atoms/TextArea";
+
+const CATEGORY = [
+  {
+    value: "a",
+    label: "a",
+  },
+  {
+    value: "b",
+    label: "b",
+  },
+  {
+    value: "c",
+    label: "c",
+  },
+];
 
 const schema = z.object({
-  name: z.string().min(6),
+  name: z.string().min(6, "Minimum value is 6"),
   brand: z.string().min(8),
-  price: z.number().gt(0),
-  category: z.enum(["TV", "PC", "GA", "PH"]),
-  "item-weight": z.number().gt(0),
-  description: z
-    .string()
-    .min(4, "Please enter a valid value")
-    .optional()
-    .or(z.literal("")),
+  price: z.coerce.number().gt(10, "Must be 18 and above"),
+  category: z
+    .object({
+      value: z.string(),
+      label: z.string(),
+    })
+    .required(),
+  "item-weight": z.coerce.number().gte(5, "Must be 5 and above"),
+  description: z.string().min(4, "min 4 length").optional().or(z.literal("")),
 });
 
 type FormFields = z.infer<typeof schema>;
@@ -22,24 +48,40 @@ const FormPage = () => {
     register,
     handleSubmit,
     setError,
-    // formState: { errors, isSubmitting },
+    formState: { errors },
+    control,
+    // setValue,
   } = useForm<FormFields>({
-    // defaultValues: {
-    //   email: "test@email.com",
-    // },
+    defaultValues: {
+      name: "test@email.com",
+      // category: {
+      //   value: "a",
+      //   label: "a",
+      // },
+    },
     resolver: zodResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FormFields> = async (data) => {
+  const onSubmit: SubmitHandler<FormFields> = (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       console.log(data);
-    } catch {
+    } catch (error) {
       setError("root", {
         message: "This email is already taken",
       });
+      console.log(error);
     }
   };
+
+  const onErrors: SubmitErrorHandler<FormFields> = (error) => {
+    console.log(error);
+  };
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setValue("category", { label: "a", value: "a" });
+  //   }, 1000);
+  // }, [setValue]);
 
   return (
     <div className="ModuleContainer">
@@ -48,76 +90,86 @@ const FormPage = () => {
           <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
             Add a new product
           </h2>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit, onErrors)}>
             <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
               <div className="sm:col-span-2">
-                <label htmlFor="name">Product Name</label>
-                <input
+                <Input
+                  label="Name"
                   type="text"
-                  // name="name"
-                  id="name"
-                  placeholder="Type product name"
                   required
-                  {...register("name")}
+                  error={errors.name}
+                  name="name"
+                  register={register("name")}
                 />
               </div>
               <div className="w-full">
-                <label htmlFor="brand">Brand</label>
-                <input
+                <Input
+                  label="Brand"
                   type="text"
                   id="brand"
-                  placeholder="Product brand"
+                  placeholder="Product Brand"
                   required
-                  {...register("brand")}
+                  error={errors.brand}
+                  register={register("brand")}
+                  name="brand"
                 />
               </div>
               <div className="w-full">
-                <label htmlFor="price">Price</label>
-                <input
+                <Input
+                  label="Price"
                   type="number"
                   id="price"
                   placeholder="$2999"
                   required
-                  {...register("price")}
+                  error={errors.price}
+                  register={register("price")}
+                  name="price"
                 />
               </div>
               <div>
-                <label htmlFor="category">Category</label>
-                <select id="category" {...register("category")}>
-                  <option selected>Select category</option>
-                  <option value="TV">TV/Monitors</option>
-                  <option value="PC">PC</option>
-                  <option value="GA">Gaming/Console</option>
-                  <option value="PH">Phones</option>
-                </select>
+                <Controller
+                  control={control}
+                  name="category"
+                  render={({ field: { onChange, value, name } }) => (
+                    <CustomSelect
+                      options={CATEGORY}
+                      label="Category"
+                      isMulti={false}
+                      onChange={onChange}
+                      value={value}
+                      name={name}
+                      error={errors.category as FieldError}
+                    />
+                  )}
+                />
               </div>
               <div>
-                <label htmlFor="item-weight">Item Weight (kg)</label>
-                <input
+                <Input
+                  label="Item Weight"
                   type="number"
                   id="item-weight"
-                  placeholder="12"
+                  placeholder="10"
                   required
-                  {...register("item-weight")}
+                  error={errors["item-weight"]}
+                  register={register("item-weight")}
+                  name="item-weight"
                 />
               </div>
               <div className="sm:col-span-2">
-                <label htmlFor="description">Description</label>
-                <textarea
+                <TextArea
+                  label="Description"
+                  placeholder="Enter your description here..."
                   id="description"
-                  rows={8}
-                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder="Your description here"
-                  {...register("description")}
-                ></textarea>
+                  error={errors.description}
+                  register={register("description")}
+                  name="description"
+                  required
+                />
               </div>
             </div>
-            <button
-              type="submit"
-              className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
-            >
+            <Button type="submit" className="mt-5">
               Add product
-            </button>
+            </Button>
           </form>
         </div>
       </section>
