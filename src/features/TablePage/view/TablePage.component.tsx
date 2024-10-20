@@ -4,11 +4,14 @@ import {
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
+  SortingState,
   useReactTable,
 } from "@tanstack/react-table";
 import clsx from "clsx";
-import { useState } from "react";
+import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import DebouncedInput from "../components/DebouncedInput";
 import { USERS } from "./data";
 
@@ -16,6 +19,8 @@ type TUser = (typeof USERS)[0];
 
 const TablePage = () => {
   const columnHelper = createColumnHelper<TUser>();
+
+  const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const columns = [
     columnHelper.display({
@@ -59,12 +64,15 @@ const TablePage = () => {
   const table = useReactTable({
     data,
     columns,
+    onSortingChange: setSorting,
     state: {
       globalFilter,
+      sorting,
     },
     getFilteredRowModel: getFilteredRowModel(),
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
   });
 
   return (
@@ -87,11 +95,25 @@ const TablePage = () => {
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
-                    <th key={header.id} className="capitalize px-3.5 py-2">
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
+                    <th
+                      key={header.id}
+                      className="capitalize px-3.5 py-2 cursor-pointer select-none "
+                      onClick={header.column.getToggleSortingHandler()}
+                    >
+                      <div className="flex justify-between items-center w-full">
+                        <p>
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                        </p>
+                        {/* <p> */}
+                        {{
+                          asc: <IoChevronUp />,
+                          desc: <IoChevronDown />,
+                        }[header.column.getIsSorted() as string] ?? null}
+                        {/* </p> */}
+                      </div>
                     </th>
                   ))}
                 </tr>

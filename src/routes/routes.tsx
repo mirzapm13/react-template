@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../components/templates/DashboardLayout";
+import AdvancedTable from "../features/AdvancedTable";
+import ChartPage from "../features/ChartPage";
 import FormPage from "../features/FormPage/view";
 import Login from "../features/Login/view";
 import ModalPage from "../features/ModalPage/view/ModalPage.component";
@@ -36,6 +38,14 @@ const router = createBrowserRouter([
       {
         path: "/pdf",
         element: <PDFPage />,
+      },
+      {
+        path: "/charts",
+        element: <ChartPage />,
+      },
+      {
+        path: "/advanced-table",
+        element: <AdvancedTable />,
       },
     ],
   },
