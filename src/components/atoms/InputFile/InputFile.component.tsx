@@ -7,9 +7,10 @@ export interface IInput extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: FieldError;
   name: string;
   register?: UseFormRegisterReturn;
+  required?: boolean;
 }
 
-const Input: FC<IInput> = ({
+const InputFile: FC<IInput> = ({
   label,
   error,
   name,
@@ -26,9 +27,12 @@ const Input: FC<IInput> = ({
       )}
 
       <input
+        type="file"
         id={name}
-        className={clsx(error && "focus:ring-red-500 focus:border-red-500")}
-        required={required}
+        className={clsx(
+          "block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50",
+          error && "focus:ring-red-500 focus:border-red-500"
+        )}
         {...(register && register)}
         {...props}
       />
@@ -37,4 +41,4 @@ const Input: FC<IInput> = ({
   );
 };
 
-export default Input;
+export default InputFile;

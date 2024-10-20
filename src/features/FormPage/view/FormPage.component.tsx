@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "flowbite-react";
+import { useState } from "react";
 import {
   Controller,
   FieldError,
@@ -8,8 +9,10 @@ import {
   useForm,
 } from "react-hook-form";
 import { z } from "zod";
+import CDatePicker from "../../../components/atoms/CDatePicker";
 import CustomSelect from "../../../components/atoms/CustomSelect";
 import Input from "../../../components/atoms/Input";
+import InputFile from "../../../components/atoms/InputFile";
 import TextArea from "../../../components/atoms/TextArea";
 
 const CATEGORY = [
@@ -39,16 +42,28 @@ const schema = z.object({
     .required(),
   "item-weight": z.coerce.number().gte(5, "Must be 5 and above"),
   description: z.string().min(4, "min 4 length").optional().or(z.literal("")),
+  file: z
+    .instanceof(FileList)
+    .refine((file) => file.length > 0, "File is required"),
+  date: z.any(),
 });
 
 type FormFields = z.infer<typeof schema>;
 
 const FormPage = () => {
+  // const [startDate, setStartDate] = useState<Date | null>(new Date());
+
+  const [dateRange, setDateRange] = useState<(Date | null)[] | null>([
+    null,
+    null,
+  ]);
+  const [startDate, endDate] = dateRange as Date[];
+
   const {
     register,
     handleSubmit,
     setError,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     control,
     // setValue,
   } = useForm<FormFields>({
@@ -62,9 +77,20 @@ const FormPage = () => {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FormFields> = (data) => {
+  const onSubmit: SubmitHandler<FormFields> = async (data) => {
     try {
+      await new Promise((resolve) => setTimeout(resolve, 3000)); //Simulate API Process
+      const newData = new FormData();
+
+      for (const key in data) {
+        if (key === "file") {
+          newData.append(key, data[key][0]);
+        } else {
+          newData.append(key, data[key as keyof FormFields]);
+        }
+      }
       console.log(data);
+      console.log(newData.get("file"));
     } catch (error) {
       setError("root", {
         message: "This email is already taken",
@@ -166,8 +192,48 @@ const FormPage = () => {
                   required
                 />
               </div>
+              <div>
+                <InputFile
+                  placeholder="Upload File"
+                  id="file"
+                  name="file"
+                  register={register("file")}
+                  label="Upload File"
+                  error={errors.file}
+                  required
+                />
+              </div>
+
+              <div>
+                <Controller
+                  control={control}
+                  name="date"
+                  render={({ field: { onChange, value, name } }) => (
+                    <CDatePicker
+                      label="Choose Date"
+                      name={name}
+                      selectsRange={true}
+                      startDate={startDate}
+                      endDate={endDate}
+                      onChange={(update) => {
+                        setDateRange(update);
+                        onChange(update);
+                      }}
+                      isClearable={true}
+                      value={value}
+                      error={errors.date as FieldError}
+                    />
+                  )}
+                />
+              </div>
             </div>
-            <Button type="submit" className="mt-5">
+
+            <Button
+              isProcessing={isSubmitting}
+              disabled={isSubmitting}
+              type="submit"
+              className="mt-5"
+            >
               Add product
             </Button>
           </form>

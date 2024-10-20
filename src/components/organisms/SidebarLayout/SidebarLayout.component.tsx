@@ -24,6 +24,9 @@ const SidebarLayout = () => {
       button:
         "flex w-full items-center rounded-lg p-2 text-base font-normal text-white transition duration-75 hover:bg-primary-700 [&_svg]:text-[inherit]",
     },
+    itemGroup: {
+      base: "flex flex-col gap-1",
+    },
   };
 
   const { width } = useViewport();
@@ -56,6 +59,9 @@ const SidebarLayout = () => {
           </Link>
           <Link to={"/modal"}>
             <Sidebar.Item icon={FaTable}>Modal</Sidebar.Item>
+          </Link>
+          <Link to={"/pdf"}>
+            <Sidebar.Item icon={IoDocument}>PDF Viewer</Sidebar.Item>
           </Link>
           <Link to={"/auth/login"}>
             <Sidebar.Item icon={HiArrowSmRight}>Sign In</Sidebar.Item>

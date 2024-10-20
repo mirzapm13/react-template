@@ -31,3 +31,7 @@
     @apply p-6;
   }
 }
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
