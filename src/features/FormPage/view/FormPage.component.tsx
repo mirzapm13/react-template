@@ -45,7 +45,7 @@ const schema = z.object({
   file: z
     .instanceof(FileList)
     .refine((file) => file.length > 0, "File is required"),
-  date: z.any(),
+  date: z.any().refine((date) => date.length == 0, "Date is required"),
 });
 
 type FormFields = z.infer<typeof schema>;
@@ -86,7 +86,7 @@ const FormPage = () => {
         if (key === "file") {
           newData.append(key, data[key][0]);
         } else {
-          newData.append(key, data[key as keyof FormFields]);
+          newData.append(key, (data as any)[key]);
         }
       }
       console.log(data);
