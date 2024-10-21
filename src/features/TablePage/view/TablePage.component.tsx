@@ -11,7 +11,7 @@ import {
 import clsx from "clsx";
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { IoChevronDown, IoChevronUp } from "react-icons/io5";
+import { LuChevronDown, LuChevronsUpDown, LuChevronUp } from "react-icons/lu";
 import DebouncedInput from "../components/DebouncedInput";
 import { USERS } from "./data";
 
@@ -26,6 +26,7 @@ const TablePage = () => {
     columnHelper.display({
       id: "actions",
       cell: (props) => <>{props.row.index + 1} </>,
+      enableSorting: false,
     }),
     columnHelper.accessor("profile", {
       cell: (info) => (
@@ -77,19 +78,19 @@ const TablePage = () => {
 
   return (
     <div className="ModuleContainer">
-      <div className="p-2 mx-auto text-black fill-gray-400">
+      <div className="p-2 mx-auto text-black fill-gray-400 min-w-fit">
         <div className="flex justify-between mb-2">
           <div className="w-full flex items-center gap-1">
             <FaSearch />
             <DebouncedInput
               value={globalFilter ?? ""}
               onChange={(value) => setGlobalFilter(String(value))}
-              className="p-2 bg-transparent outline-none border-b-2 w-1/5 focus:w-1/3 duration-300 border-primary-500"
+              className="p-2 bg-transparent outline-none border-b-2 w-full duration-300 border-primary-500"
               placeholder="Search all columns..."
             />
           </div>
         </div>
-        <div className="rounded-lg overflow-hidden">
+        <div className="rounded-lg overflow-hidden ">
           <table className="w-full text-left">
             <thead className="bg-primary-600 text-white">
               {table.getHeaderGroups().map((headerGroup) => (
@@ -107,12 +108,13 @@ const TablePage = () => {
                             header.getContext()
                           )}
                         </p>
-                        {/* <p> */}
-                        {{
-                          asc: <IoChevronUp />,
-                          desc: <IoChevronDown />,
-                        }[header.column.getIsSorted() as string] ?? null}
-                        {/* </p> */}
+                        {(header.column.getCanSort() &&
+                          {
+                            asc: <LuChevronUp />,
+                            desc: <LuChevronDown />,
+                          }[header.column.getIsSorted() as string]) ?? (
+                          <LuChevronsUpDown />
+                        )}
                       </div>
                     </th>
                   ))}

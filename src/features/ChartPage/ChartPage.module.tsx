@@ -128,7 +128,7 @@ const barOptions = {
 
 const labels = ["January", "February", "March", "April", "May", "June", "July"];
 
-export const barData = {
+const barData = {
   labels,
   datasets: [
     {
@@ -146,11 +146,11 @@ export const barData = {
 
 const ChartPage = () => {
   return (
-    <div className={clsx("ModuleContainer", "grid grid-cols-2 gap-4")}>
+    <div className={clsx("ModuleContainer", "grid md:grid-cols-2 gap-4")}>
       <Card className="p-4">
         <Line data={data} options={options} />
       </Card>
-      <Card>
+      <Card className="p-4">
         <Bar options={barOptions} data={barData} />
       </Card>
     </div>

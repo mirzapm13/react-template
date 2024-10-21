@@ -1,11 +1,20 @@
 import clsx from "clsx";
 import { CustomFlowbiteTheme, Sidebar } from "flowbite-react";
 import { FaChartLine, FaTable } from "react-icons/fa";
-import { HiArrowSmRight, HiChartPie, HiShoppingBag } from "react-icons/hi";
+import {
+  HiArrowSmRight,
+  HiChartPie,
+  HiOutlineX,
+  HiShoppingBag,
+} from "react-icons/hi";
 import { IoDocument } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { viewportWidth } from "../../../constants/viewport";
 import useViewport from "../../../hooks/useViewport";
+
+// interface ISidebarProps {
+//   closeDrawer: () => void;
+// }
 
 const SidebarLayout = () => {
   const customTheme: CustomFlowbiteTheme["sidebar"] = {
@@ -41,6 +50,15 @@ const SidebarLayout = () => {
         className={clsx(width < viewportWidth.mobileDown && "pt-0")}
       >
         <Sidebar.ItemGroup>
+          {/* ===========Close Item=========== */}
+          <Sidebar.Item
+            className={clsx(
+              width >= viewportWidth.mobileDown && "hidden",
+              "[&_span]:hidden w-fit mb-8 float-right"
+            )}
+            icon={HiOutlineX}
+          ></Sidebar.Item>
+
           <Link to={"/overview"}>
             <Sidebar.Item icon={HiChartPie}>Overview</Sidebar.Item>
           </Link>
@@ -65,9 +83,9 @@ const SidebarLayout = () => {
           <Link to={"/charts"}>
             <Sidebar.Item icon={FaChartLine}>Charts</Sidebar.Item>
           </Link>
-          <Link to={"/advanced-table"}>
+          {/* <Link to={"/advanced-table"}>
             <Sidebar.Item icon={FaTable}>Table</Sidebar.Item>
-          </Link>
+          </Link> */}
           <Link to={"/auth/login"}>
             <Sidebar.Item icon={HiArrowSmRight}>Sign In</Sidebar.Item>
           </Link>

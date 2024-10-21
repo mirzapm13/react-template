@@ -1,6 +1,5 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, redirect } from "react-router-dom";
 import DashboardLayout from "../components/templates/DashboardLayout";
-import AdvancedTable from "../features/AdvancedTable";
 import ChartPage from "../features/ChartPage";
 import FormPage from "../features/FormPage/view";
 import Login from "../features/Login/view";
@@ -12,9 +11,23 @@ import TablePage from "../features/TablePage/view/TablePage.component";
 
 const router = createBrowserRouter([
   {
+    path: "/auth",
+    element: <Login />,
+    children: [
+      {
+        path: "/auth/login",
+        element: <Login />,
+      },
+    ],
+  },
+  {
     path: "/",
     element: <DashboardLayout />,
     children: [
+      {
+        index: true,
+        loader: async () => redirect("/overview"),
+      },
       {
         path: "/overview",
         element: <Overview />,
@@ -43,20 +56,10 @@ const router = createBrowserRouter([
         path: "/charts",
         element: <ChartPage />,
       },
-      {
-        path: "/advanced-table",
-        element: <AdvancedTable />,
-      },
-    ],
-  },
-  {
-    path: "/auth",
-    element: <Login />,
-    children: [
-      {
-        path: "/auth/login",
-        element: <Login />,
-      },
+      // {
+      //   path: "/advanced-table",
+      //   element: <AdvancedTable />,
+      // },
     ],
   },
 ]);
