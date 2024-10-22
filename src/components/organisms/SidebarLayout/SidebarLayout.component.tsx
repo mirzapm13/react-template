@@ -16,7 +16,6 @@ const SidebarLayout = ({ closeModal }: { closeModal: () => void }) => {
   const { width } = useViewport();
   return (
     <Sidebar
-      // theme={customTheme}
       className={clsx(
         width < viewportWidth.mobileDown && "!relative w-full border-0"
       )}
@@ -24,8 +23,8 @@ const SidebarLayout = ({ closeModal }: { closeModal: () => void }) => {
       <Sidebar.Items
         className={clsx(width < viewportWidth.mobileDown && "pt-0")}
       >
+        {/* ===========Close Item=========== */}
         <Sidebar.ItemGroup>
-          {/* ===========Close Item=========== */}
           <Sidebar.Item
             onClick={closeModal}
             className={clsx(
@@ -36,15 +35,21 @@ const SidebarLayout = ({ closeModal }: { closeModal: () => void }) => {
           ></Sidebar.Item>
 
           <Link to={"/user"}>
-            <Sidebar.Item icon={FaUser}>User</Sidebar.Item>
+            <Sidebar.Item as="div" icon={FaUser}>
+              User
+            </Sidebar.Item>
           </Link>
 
           <Link to={"/role"}>
-            <Sidebar.Item icon={FaCog}>Role</Sidebar.Item>
+            <Sidebar.Item as="div" icon={FaCog}>
+              Role
+            </Sidebar.Item>
           </Link>
 
           <Link to={"/overview"}>
-            <Sidebar.Item icon={HiChartPie}>Dashboard</Sidebar.Item>
+            <Sidebar.Item as="div" icon={HiChartPie}>
+              Dashboard
+            </Sidebar.Item>
           </Link>
           <Sidebar.Collapse icon={HiShoppingBag} label="Dropdown">
             <Sidebar.Item href="#">Dropdown 1</Sidebar.Item>
@@ -53,26 +58,35 @@ const SidebarLayout = ({ closeModal }: { closeModal: () => void }) => {
             <Sidebar.Item href="#">Dropdown 4</Sidebar.Item>
           </Sidebar.Collapse>
           <Link to={"/form"}>
-            <Sidebar.Item icon={IoDocument}>Form</Sidebar.Item>
+            <Sidebar.Item as="div" icon={IoDocument}>
+              Form
+            </Sidebar.Item>
           </Link>
           <Link to={"/table"}>
-            <Sidebar.Item icon={FaTable}>Table</Sidebar.Item>
+            <Sidebar.Item as="div" icon={FaTable}>
+              Table
+            </Sidebar.Item>
           </Link>
           <Link to={"/modal"}>
-            <Sidebar.Item icon={FaTable}>Modal</Sidebar.Item>
+            <Sidebar.Item as="div" icon={FaTable}>
+              Modal
+            </Sidebar.Item>
           </Link>
           <Link to={"/pdf"}>
-            <Sidebar.Item icon={IoDocument}>PDF Viewer</Sidebar.Item>
+            <Sidebar.Item as="div" icon={IoDocument}>
+              PDF Viewer
+            </Sidebar.Item>
           </Link>
           <Link to={"/charts"}>
-            <Sidebar.Item icon={FaChartLine}>Charts</Sidebar.Item>
+            <Sidebar.Item as="div" icon={FaChartLine}>
+              Charts
+            </Sidebar.Item>
           </Link>
 
-          {/* <Link to={"/advanced-table"}>
-            <Sidebar.Item icon={FaTable}>Table</Sidebar.Item>
-          </Link> */}
           <Link to={"/auth/login"}>
-            <Sidebar.Item icon={HiArrowSmRight}>Sign In</Sidebar.Item>
+            <Sidebar.Item as="div" icon={HiArrowSmRight}>
+              Sign In
+            </Sidebar.Item>
           </Link>
         </Sidebar.ItemGroup>
       </Sidebar.Items>

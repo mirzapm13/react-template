@@ -4,9 +4,7 @@ import { FaBell } from "react-icons/fa";
 
 const Header: FC<{ openDrawer: () => void }> = ({ openDrawer }) => {
   return (
-    <Navbar
-    // theme={customTheme}
-    >
+    <Navbar>
       <Navbar.Brand href="#">
         <img src="/globals/logo-placeholder.svg" alt="Main Logo" />
       </Navbar.Brand>

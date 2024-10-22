@@ -32,11 +32,7 @@ const DashboardLayout = () => {
       <ConditionalWrapper
         condition={width < viewportWidth.mobileDown}
         wrapper={(children) => (
-          <Drawer
-            open={drawerOpen}
-            onClose={() => setDrawerOpen(false)}
-            // theme={customTheme}
-          >
+          <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)}>
             {children}
           </Drawer>
         )}
