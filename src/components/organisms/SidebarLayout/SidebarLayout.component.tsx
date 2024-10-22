@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { CustomFlowbiteTheme, Sidebar } from "flowbite-react";
-import { FaChartLine, FaTable } from "react-icons/fa";
+import { FaChartLine, FaCog, FaTable, FaUser } from "react-icons/fa";
 import {
   HiArrowSmRight,
   HiChartPie,
@@ -56,6 +56,14 @@ const SidebarLayout = ({ closeModal }: { closeModal: () => void }) => {
             icon={HiOutlineX}
           ></Sidebar.Item>
 
+          <Link to={"/user"}>
+            <Sidebar.Item icon={FaUser}>User</Sidebar.Item>
+          </Link>
+
+          <Link to={"/role"}>
+            <Sidebar.Item icon={FaCog}>Role</Sidebar.Item>
+          </Link>
+
           <Link to={"/overview"}>
             <Sidebar.Item icon={HiChartPie}>Dashboard</Sidebar.Item>
           </Link>
@@ -80,6 +88,7 @@ const SidebarLayout = ({ closeModal }: { closeModal: () => void }) => {
           <Link to={"/charts"}>
             <Sidebar.Item icon={FaChartLine}>Charts</Sidebar.Item>
           </Link>
+
           {/* <Link to={"/advanced-table"}>
             <Sidebar.Item icon={FaTable}>Table</Sidebar.Item>
           </Link> */}
