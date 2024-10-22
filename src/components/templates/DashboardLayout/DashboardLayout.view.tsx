@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { CustomFlowbiteTheme, Drawer } from "flowbite-react";
+import { Drawer } from "flowbite-react";
 import { FC, ReactNode, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { viewportWidth } from "../../../constants/viewport";
@@ -22,12 +22,6 @@ const ConditionalWrapper: FC<ConditionalWrapperProps> = ({
 }) => (condition ? wrapper(children) : children);
 
 const DashboardLayout = () => {
-  const customTheme: CustomFlowbiteTheme["drawer"] = {
-    root: {
-      base: "fixed z-40 overflow-y-auto transition-transform bg-primary-800",
-    },
-  };
-
   const { width } = useViewport();
 
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
@@ -41,7 +35,7 @@ const DashboardLayout = () => {
           <Drawer
             open={drawerOpen}
             onClose={() => setDrawerOpen(false)}
-            theme={customTheme}
+            // theme={customTheme}
           >
             {children}
           </Drawer>

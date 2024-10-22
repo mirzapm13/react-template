@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { CustomFlowbiteTheme, Sidebar } from "flowbite-react";
+import { Sidebar } from "flowbite-react";
 import { FaChartLine, FaCog, FaTable, FaUser } from "react-icons/fa";
 import {
   HiArrowSmRight,
@@ -13,31 +13,10 @@ import { viewportWidth } from "../../../constants/viewport";
 import useViewport from "../../../hooks/useViewport";
 
 const SidebarLayout = ({ closeModal }: { closeModal: () => void }) => {
-  const customTheme: CustomFlowbiteTheme["sidebar"] = {
-    root: {
-      base: "h-full border-r border-gray-200 fixed",
-      inner:
-        "h-full overflow-y-auto overflow-x-hidden rounded bg-primary-800 px-3 py-4",
-    },
-    items: {
-      base: "pt-[90px]",
-    },
-    item: {
-      base: "flex items-center justify-center rounded-lg p-2 text-base font-normal text-white hover:bg-primary-700 [&_svg]:text-[inherit] cursor-pointer",
-    },
-    collapse: {
-      button:
-        "flex w-full items-center rounded-lg p-2 text-base font-normal text-white transition duration-75 hover:bg-primary-700 [&_svg]:text-[inherit]",
-    },
-    itemGroup: {
-      base: "flex flex-col gap-1",
-    },
-  };
-
   const { width } = useViewport();
   return (
     <Sidebar
-      theme={customTheme}
+      // theme={customTheme}
       className={clsx(
         width < viewportWidth.mobileDown && "!relative w-full border-0"
       )}
