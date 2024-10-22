@@ -1,13 +1,10 @@
 import clsx from "clsx";
 import { Card } from "flowbite-react";
-import Subheader from "../../../components/organisms/Subheader/Subheader.component";
 import s from "./Overview.module.css";
 
 const Overview = () => {
   return (
     <>
-      <Subheader />
-
       <div className="ModuleContainer">
         <div className={clsx(s.Container)}>
           <div>Overview Test</div>

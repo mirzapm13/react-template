@@ -1,5 +1,5 @@
 import {
-  createColumnHelper,
+  ColumnDef,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -9,68 +9,24 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import clsx from "clsx";
-import React, { useState } from "react";
-import { FaSearch } from "react-icons/fa";
+import React from "react";
 import { LuChevronDown, LuChevronsUpDown, LuChevronUp } from "react-icons/lu";
-import DebouncedInput from "../components/DebouncedInput";
-import { USERS } from "./data";
 
-type TUser = (typeof USERS)[0];
+interface ITableProps<T extends object> {
+  data: T[];
+  columns: {
+    [K in keyof T]: ColumnDef<T, T[K]>;
+  }[keyof T][];
+}
 
-const TablePage = () => {
-  const columnHelper = createColumnHelper<TUser>();
-
+const Table = <K extends object>({ data, columns }: ITableProps<K>) => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
-
-  const columns = [
-    columnHelper.display({
-      id: "actions",
-      cell: (props) => <>{props.row.index + 1} </>,
-      enableSorting: false,
-    }),
-    columnHelper.accessor("profile", {
-      cell: (info) => (
-        <img
-          src={info?.getValue()}
-          alt="..."
-          className="rounded-full w-10 h-10 object-cover"
-        />
-      ),
-      header: "Profile",
-    }),
-    columnHelper.accessor("firstName", {
-      cell: (info) => <span>{info.getValue()}</span>,
-      header: "First Name",
-    }),
-    columnHelper.accessor("lastName", {
-      cell: (info) => <span>{info.getValue()}</span>,
-      header: "Last Name",
-    }),
-    columnHelper.accessor("age", {
-      cell: (info) => <span>{info.getValue()}</span>,
-      header: "Age",
-    }),
-    columnHelper.accessor("visits", {
-      cell: (info) => <span>{info.getValue()}</span>,
-      header: "Visits",
-    }),
-    columnHelper.accessor("progress", {
-      cell: (info) => <span>{info.getValue()}</span>,
-      header: "Progress",
-    }),
-  ];
-
-  const [data] = useState(() => [...USERS]);
-  const [globalFilter, setGlobalFilter] = useState("");
-
-  // return <Table data={data} columns={columns} />;
 
   const table = useReactTable({
     data,
     columns,
     onSortingChange: setSorting,
     state: {
-      globalFilter,
       sorting,
     },
     getFilteredRowModel: getFilteredRowModel(),
@@ -82,7 +38,7 @@ const TablePage = () => {
   return (
     <div className="ModuleContainer">
       <div className="p-2 mx-auto text-black fill-gray-400 min-w-fit">
-        <div className="flex justify-between mb-2">
+        {/* <div className="flex justify-between mb-2">
           <div className="w-full flex items-center gap-1">
             <FaSearch />
             <DebouncedInput
@@ -92,7 +48,7 @@ const TablePage = () => {
               placeholder="Search all columns..."
             />
           </div>
-        </div>
+        </div> */}
         <div className="rounded-lg overflow-hidden ">
           <table className="w-full text-left">
             <thead className="bg-primary-600 text-white">
@@ -213,4 +169,4 @@ const TablePage = () => {
   );
 };
 
-export default TablePage;
+export default Table;

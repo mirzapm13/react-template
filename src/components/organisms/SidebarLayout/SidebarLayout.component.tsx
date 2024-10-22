@@ -12,11 +12,7 @@ import { Link } from "react-router-dom";
 import { viewportWidth } from "../../../constants/viewport";
 import useViewport from "../../../hooks/useViewport";
 
-// interface ISidebarProps {
-//   closeDrawer: () => void;
-// }
-
-const SidebarLayout = () => {
+const SidebarLayout = ({ closeModal }: { closeModal: () => void }) => {
   const customTheme: CustomFlowbiteTheme["sidebar"] = {
     root: {
       base: "h-full border-r border-gray-200 fixed",
@@ -27,7 +23,7 @@ const SidebarLayout = () => {
       base: "pt-[90px]",
     },
     item: {
-      base: "flex items-center justify-center rounded-lg p-2 text-base font-normal text-white hover:bg-primary-700 [&_svg]:text-[inherit]",
+      base: "flex items-center justify-center rounded-lg p-2 text-base font-normal text-white hover:bg-primary-700 [&_svg]:text-[inherit] cursor-pointer",
     },
     collapse: {
       button:
@@ -52,6 +48,7 @@ const SidebarLayout = () => {
         <Sidebar.ItemGroup>
           {/* ===========Close Item=========== */}
           <Sidebar.Item
+            onClick={closeModal}
             className={clsx(
               width >= viewportWidth.mobileDown && "hidden",
               "[&_span]:hidden w-fit mb-8 float-right"
@@ -60,7 +57,7 @@ const SidebarLayout = () => {
           ></Sidebar.Item>
 
           <Link to={"/overview"}>
-            <Sidebar.Item icon={HiChartPie}>Overview</Sidebar.Item>
+            <Sidebar.Item icon={HiChartPie}>Dashboard</Sidebar.Item>
           </Link>
           <Sidebar.Collapse icon={HiShoppingBag} label="Dropdown">
             <Sidebar.Item href="#">Dropdown 1</Sidebar.Item>

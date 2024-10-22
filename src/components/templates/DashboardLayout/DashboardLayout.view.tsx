@@ -6,6 +6,7 @@ import { viewportWidth } from "../../../constants/viewport";
 import useViewport from "../../../hooks/useViewport";
 import Header from "../../organisms/Header";
 import SidebarLayout from "../../organisms/SidebarLayout";
+import Subheader from "../../organisms/Subheader";
 import s from "./DashboardLayout.module.css";
 
 type ConditionalWrapperProps = {
@@ -46,12 +47,13 @@ const DashboardLayout = () => {
           </Drawer>
         )}
       >
-        <SidebarLayout />
+        <SidebarLayout closeModal={() => setDrawerOpen(false)} />
       </ConditionalWrapper>
 
       <div
         className={clsx(s.Wrapper, width < viewportWidth.mobileDown && "!pl-0")}
       >
+        <Subheader />
         <div className={clsx(s.OutletContainer)}>
           <Outlet />
         </div>

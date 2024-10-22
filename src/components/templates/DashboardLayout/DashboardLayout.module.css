@@ -6,6 +6,6 @@
   @apply pl-[256px] pt-[60px];
 }
 
-/* .OutletContainer {
-  @apply p-6;
-} */
+.OutletContainer {
+  @apply mt-[68px];
+}

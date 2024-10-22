@@ -45,7 +45,7 @@ const schema = z.object({
   file: z
     .instanceof(FileList)
     .refine((file) => file.length > 0, "File is required"),
-  date: z.any().refine((date) => date.length == 0, "Date is required"),
+  date: z.array(z.any()),
 });
 
 type FormFields = z.infer<typeof schema>;
@@ -79,7 +79,7 @@ const FormPage = () => {
 
   const onSubmit: SubmitHandler<FormFields> = async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 3000)); //Simulate API Process
+      // await new Promise((resolve) => setTimeout(resolve, 3000)); //Simulate API Process
       const newData = new FormData();
 
       for (const key in data) {
@@ -220,7 +220,7 @@ const FormPage = () => {
                         onChange(update);
                       }}
                       isClearable={true}
-                      value={value}
+                      value={value as unknown as string}
                       error={errors.date as FieldError}
                     />
                   )}
