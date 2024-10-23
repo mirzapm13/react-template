@@ -6,9 +6,9 @@ export function createRandomUser() {
     profile: faker.image.avatar(),
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
-    age: faker.datatype.number(40),
-    visits: faker.datatype.number(1000),
-    progress: faker.datatype.number(100),
+    age: faker.number.int(40),
+    visits: faker.number.int(1000),
+    progress: faker.number.int(100),
   };
 }
 

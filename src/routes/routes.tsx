@@ -7,18 +7,16 @@ import ModalPage from "../features/ModalPage/view/ModalPage.component";
 import Overview from "../features/Overview/view";
 import OverviewExtra from "../features/OverviewExtra/view";
 import PDFPage from "../features/PDFPage/PDFPage.component";
+import RoleNew from "../features/Role/components/RoleNew";
+import Role from "../features/Role/view";
 import TablePage from "../features/TablePage/view/TablePage.component";
+import UserNew from "../features/User/components/UserNew";
+import User from "../features/User/view";
 
 const router = createBrowserRouter([
   {
-    path: "/auth",
+    path: "/auth/login",
     element: <Login />,
-    children: [
-      {
-        path: "/auth/login",
-        element: <Login />,
-      },
-    ],
   },
   {
     path: "/",
@@ -56,10 +54,22 @@ const router = createBrowserRouter([
         path: "/charts",
         element: <ChartPage />,
       },
-      // {
-      //   path: "/advanced-table",
-      //   element: <AdvancedTable />,
-      // },
+      {
+        path: "/user",
+        element: <User />,
+      },
+      {
+        path: "/user/new",
+        element: <UserNew />,
+      },
+      {
+        path: "/role",
+        element: <Role />,
+      },
+      {
+        path: "/role/new",
+        element: <RoleNew />,
+      },
     ],
   },
 ]);

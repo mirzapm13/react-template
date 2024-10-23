@@ -63,8 +63,6 @@ const TablePage = () => {
   const [data] = useState(() => [...USERS]);
   const [globalFilter, setGlobalFilter] = useState("");
 
-  // return <Table data={data} columns={columns} />;
-
   const table = useReactTable({
     data,
     columns,

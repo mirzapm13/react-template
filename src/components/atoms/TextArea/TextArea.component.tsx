@@ -5,9 +5,9 @@ import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 export interface ITextAreaProps
   extends React.InputHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
-  error: FieldError | undefined;
+  error?: FieldError | undefined;
   name: string;
-  register: UseFormRegisterReturn;
+  register?: UseFormRegisterReturn;
   rows?: number;
 }
 

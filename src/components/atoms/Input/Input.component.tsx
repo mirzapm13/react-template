@@ -15,6 +15,7 @@ const Input: FC<IInput> = ({
   name,
   register,
   required,
+  type = "text",
   ...props
 }) => {
   return (
@@ -27,6 +28,7 @@ const Input: FC<IInput> = ({
 
       <input
         id={name}
+        type={type}
         className={clsx(error && "focus:ring-red-500 focus:border-red-500")}
         required={required}
         {...(register && register)}

@@ -1,9 +1,9 @@
 .MainContainer {
-  @apply grid grid-cols-[min-content_1fr] mt-[60px];
+  @apply grid grid-cols-[min-content_1fr] mt-[64px];
 }
 
 .Wrapper {
-  @apply pl-[256px] pt-[60px];
+  @apply pl-[256px] pt-[64px];
 }
 
 .OutletContainer {

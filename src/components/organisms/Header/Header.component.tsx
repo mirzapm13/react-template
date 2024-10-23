@@ -1,19 +1,10 @@
-import { Avatar, CustomFlowbiteTheme, Dropdown, Navbar } from "flowbite-react";
+import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import { FC } from "react";
 import { FaBell } from "react-icons/fa";
 
 const Header: FC<{ openDrawer: () => void }> = ({ openDrawer }) => {
-  const customTheme: CustomFlowbiteTheme["navbar"] = {
-    root: {
-      base: "bg-white px-2 py-2.5 sm:px-4 z-10 w-full fixed top-0 border-b border-gray-200 z-10 w-full fixed top-0 border-b border-gray-200",
-      inner: {
-        base: "mx-0 flex flex-wrap items-center justify-between !min-w-full",
-      },
-    },
-  };
-
   return (
-    <Navbar theme={customTheme}>
+    <Navbar>
       <Navbar.Brand href="#">
         <img src="/globals/logo-placeholder.svg" alt="Main Logo" />
       </Navbar.Brand>
